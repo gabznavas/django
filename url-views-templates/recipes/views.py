@@ -13,5 +13,6 @@ def recipes(request: HttpRequest, id: int):
     print(id)
     dummy_recipes = range(6)
     return render(request, 'recipes/pages/recipe.html', context={
-        "recipe": make_recipe()
+        "recipe": make_recipe(),
+        "is_detail_page": True
     })

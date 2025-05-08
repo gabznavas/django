@@ -281,3 +281,7 @@ h6 {
 .main-content a:hover {
   filter: brightness(.8);
 }
+
+.preparation-steps {
+  padding: var(--spacing-gutter-large);
+}
