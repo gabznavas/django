@@ -10,65 +10,10 @@
   <main class="main-content-container">
     <div class="main-content main-content-list container">
 
-      <div class="recipe recipe-list-item">
-        <div class="recipe-cover">
-          <img src="https://placehold.co/1280x720/269fe6/FFF">
-          <div class="recipe-title-container">
-            <h2 class="recipe-title">Lorem ipsum dolor sit amet.</h2>
-          </div>
+      {% for _ in dummy_recipes %}
+        {% include 'recipes/partials/recipe.html' %}
+      {% endfor %}
 
-          <div class="recipe-author">
-            <span class="recipe-author-item">
-              <i class="fa fa-user"></i>
-              Gabriel Navas
-            </span>
-            <span class="recipe-author-item">
-              <i class="fa fa-calendar-alt"></i>
-              16/10/2021 às 11:21
-            </span>
-            <span class="recipe-author-item">
-              <a href="#">
-                <i class="fas fa-layer-group"></i>
-                <span>Café da manhã</span>
-              </a>
-            </span>
-          </div>
-
-          <div class="recipe-content">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem itaque nihil, exercitationem
-              molestias velit magnam assumenda natus tempora illum minima quibusdam dolorem id sed laboriosam totam
-              repellendus hic quae ipsa eius perspiciatis nulla iure consectetur. A repudiandae distinctio debitis
-              eligendi veniam, maiores nemo perferendis, inventore, eius sunt cupiditate ipsam minima!</p>
-          </div>
-
-          <div class="recipe-meta-container">
-            <div class="recipe-meta recipe-preparation">
-              <h3 class="recipe-meta-title">
-                <i class="fas fa-stopwatch"></i>
-                Preparo
-              </h3>
-              <div class="recipe-meta-text">
-                0 Minutos
-              </div>
-            </div>
-            <div class="recipe-meta recipe-servings">
-              <h3 class="recipe-meta-title">
-                <i class="fas fa-pizza-slice"></i>
-                Porções
-              </h3>
-              <div class="recipe-meta-text">
-                0 Porções
-              </div>
-            </div>
-          </div>
-        </div>
-        <footer class="recipe-footer">
-          <a href="#" class="recipe-red-more button button-dark button-full-with">
-            <i class="fas fa-eye"></i>
-            <span>ver mais...</span>
-          </a>
-        </footer>
-      </div>
 
     </div>
   </main>
