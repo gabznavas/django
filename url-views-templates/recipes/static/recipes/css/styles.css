@@ -191,13 +191,14 @@ h6 {
 .recipe-author {
   display: flex;
   gap: 1rem;
-  padding: 0 var(--spacing-gutter-medium);
+  padding: 0.5rem var(--spacing-gutter-medium);
 }
 
 .recipe-content {
+  display: flex;
+  align-items: center;
   flex-grow: 1;
   padding: var(--spacing-gutter-medium);
-  padding-top: calc(var(--spacing-gutter-medium) / 2);
 }
 
 .recipe-author-item {
