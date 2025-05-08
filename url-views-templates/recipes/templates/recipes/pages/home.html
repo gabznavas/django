@@ -5,7 +5,7 @@
 {% block content %}
 <div class="main-content main-content-list container">
 
-  {% for _ in dummy_recipes %}
+  {% for recipe in recipes %}
     {% include 'recipes/partials/recipe.html' %}
   {% endfor %}
 
