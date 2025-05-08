@@ -7,7 +7,7 @@ def home_view(request: HttpRequest):
     })
 
 def sobre_view(request: HttpRequest):
-    return HttpResponse('SOBRE')
+    return render(request, 'recipes/sobre.html')
 
 def contato_view(request: HttpRequest):
-    return HttpResponse('CONTATO')
+    return render(request, 'recipes/contato.html')
