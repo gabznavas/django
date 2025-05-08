@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from django.http import HttpResponse, HttpRequest
-from recipes.views import home_view
+from . import views
 
 urlpatterns = [
-    path('', home_view),
+    path('', views.home),
+    path('recipes/<int:id>/', views.recipes),
 ]
