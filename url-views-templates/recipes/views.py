@@ -1,18 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, Http404
+
+from .models import Recipe
 
 from utils.recipes.factory import make_recipe
 
 def home(request: HttpRequest):
-    dummy_recipes = range(6)
+    recipes = Recipe.objects.all()
     return render(request, 'recipes/pages/home.html', context={
-        "recipes": [make_recipe() for _ in range(10)]
+        "recipes": recipes
     })
 
 def recipes(request: HttpRequest, id: int):
     print(id)
-    dummy_recipes = range(6)
+    recipe = Recipe.objects.filter(id=id).first()
+    if not recipe:
+        return Http404()
     return render(request, 'recipes/pages/recipe.html', context={
-        "recipe": make_recipe(),
+        "recipe": recipe,
         "is_detail_page": True
     })
