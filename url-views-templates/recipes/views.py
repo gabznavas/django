@@ -6,7 +6,7 @@ from .models import Recipe
 from utils.recipes.factory import make_recipe
 
 def home(request: HttpRequest):
-    recipes = Recipe.objects.filter(is_published=True)
+    recipes = Recipe.objects.filter(is_published=True).order_by('-id')
     return render(request, 'recipes/pages/home.html', context={
         "recipes": recipes
     })
