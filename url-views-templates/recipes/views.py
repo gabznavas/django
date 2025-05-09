@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, Http404
 
-from .models import Recipe
+from .models import Recipe, Category
 
 from utils.recipes.factory import make_recipe
 
@@ -10,6 +10,15 @@ def home(request: HttpRequest):
     return render(request, 'recipes/pages/home.html', context={
         "recipes": recipes
     })
+
+def category(request: HttpRequest, category_id: int):
+    recipes = Recipe.objects.filter(
+        category__id=category_id
+    ).order_by('-id')
+    return render(request, 'recipes/pages/home.html', context={
+        "recipes": recipes
+    })
+
 
 def recipes(request: HttpRequest, id: int):
     print(id)
