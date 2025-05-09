@@ -47,10 +47,13 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   font-size: 1.6rem;
   font-family: var(--font-primary);
   background-color: var(--color-gray-1);
-  color: var(--color-dark-text)
+  color: var(--color-dark-text);
+  min-height: 100vh;
 }
 
 h1,
@@ -73,6 +76,10 @@ h6 {
 }
 
 .main-header {}
+
+.main-content-container {
+  flex-grow: 1;
+}
 
 .main-logo {
   display: flex;
@@ -163,6 +170,11 @@ h6 {
 
 .recipe-img {
   width: 100%;
+  /* Largura fixa */
+  height: 350px;
+  /* Altura fixa */
+  object-fit: cover;
+  /* Recorta a imagem para caber sem distorcer */
 }
 
 .recipe-cover {
