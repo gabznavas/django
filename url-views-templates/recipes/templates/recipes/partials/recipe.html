@@ -28,7 +28,11 @@
     <div class="recipe-author">
       <span class="recipe-author-item">
         <i class="fa fa-user"></i>
+        {% if not recipe.author.first_name %}
+          {{ recipe.author.username | capfirst }}
+        {% else %}  
         {{ recipe.author.first_name }}
+        {% endif %}
       </span>
       <span class="recipe-author-item">
         <i class="fa fa-calendar-alt"></i>
