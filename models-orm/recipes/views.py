@@ -12,7 +12,7 @@ def home(request: HttpRequest):
     })
 
 def category(request: HttpRequest, category_id: int):
-    query = Recipe.objects.filter(category__id=category_id).order_by('-id')
+    query = Recipe.objects.filter(category__id=category_id, is_published=True).order_by('-id')
     recipes = get_list_or_404(query)
     category = recipes[0].category
     return render(request, 'recipes/pages/category.html', context={
@@ -21,7 +21,7 @@ def category(request: HttpRequest, category_id: int):
     })
 
 def recipes(request: HttpRequest, id: int):
-    query = Recipe.objects.filter(id=id)
+    query = Recipe.objects.filter(id=id, is_published=True)
     recipe = get_object_or_404(query)
     return render(request, 'recipes/pages/recipe.html', context={
         "recipe": recipe,
