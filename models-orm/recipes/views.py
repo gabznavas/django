@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpRequest, Http404
 
 from .models import Recipe, Category
@@ -12,23 +12,17 @@ def home(request: HttpRequest):
     })
 
 def category(request: HttpRequest, category_id: int):
-    recipes = Recipe.objects.filter(
-        category__id=category_id
-    ).order_by('-id')
-    
-    if len(recipes) == 0:
-        raise Http404('Not found')
-
+    query = Recipe.objects.filter(category__id=category_id).order_by('-id')
+    recipes = get_list_or_404(query)
+    category = recipes[0].category
     return render(request, 'recipes/pages/category.html', context={
         "recipes": recipes,
-        'title': f'{title} - Category',
+        'title': f'{category.name} - Category',
     })
 
-
 def recipes(request: HttpRequest, id: int):
-    recipe = Recipe.objects.filter(id=id).first()
-    if not recipe:
-        raise 
+    query = Recipe.objects.filter(id=id)
+    recipe = get_object_or_404(query)
     return render(request, 'recipes/pages/recipe.html', context={
         "recipe": recipe,
         "is_detail_page": True
