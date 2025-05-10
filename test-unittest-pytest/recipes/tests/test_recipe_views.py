@@ -80,7 +80,7 @@ class RecipeViewsTest(RecipeTestBase):
                          context_recipes[0].servings_unit)
 
     def test_recipe_home_template_loads_recipes_content(self):
-        recipe = self.make_recipe()
+        recipe = self.make_recipe(category_data={"name": 'Sweet'})
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
         recipes = response.context['recipes']

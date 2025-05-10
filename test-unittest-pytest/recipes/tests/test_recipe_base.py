@@ -28,8 +28,18 @@ class RecipeTestBase(TestCase):
                     servings_unit='Pessoas',
 
                     ):
-        author = self.make_author() if not author_data else author_data
-        category = self.make_category() if not category_data else category_data
+        author = {}
+        if author_data is None:
+            author = self.make_author()
+        else:
+            author = self.make_author(**author_data)
+
+        category = {}
+        if category_data is None:
+            category = self.make_category()
+        else:
+            category = self.make_category(**category_data)
+
         return Recipe.objects.create(
             title=title,
             author=author,
