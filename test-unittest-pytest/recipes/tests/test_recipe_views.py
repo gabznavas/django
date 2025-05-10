@@ -107,7 +107,7 @@ class RecipeViewsTest(TestCase):
         self.assertEqual(recipe.servings_unit,
                          context_recipes[0].servings_unit)
 
-    def test_recipe_home_template_loads_recipes_context(self):
+    def test_recipe_home_template_loads_recipes_content(self):
         category = Category.objects.create(name='category 1')
         user = User.objects.create(
             username='test', password=123, email='test@test.com'
@@ -127,6 +127,8 @@ class RecipeViewsTest(TestCase):
         )
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
+        recipes = response.context['recipes']
+        self.assertEqual(1, len(recipes))
         self.assertIn(recipe.title, content)
         self.assertIn(recipe.category.name, content,
                       'category name not found')
