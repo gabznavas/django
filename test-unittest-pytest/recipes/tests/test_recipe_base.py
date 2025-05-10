@@ -3,9 +3,6 @@ from django.test import TestCase
 
 
 class RecipeTestBase(TestCase):
-    def setUp(self):
-        self.recipe = self.make_recipe()
-
     def make_category(self, name: str = 'category 1'):
         return Category.objects.create(name=name)
 
