@@ -15,16 +15,20 @@ def category(request: HttpRequest, category_id: int):
     recipes = Recipe.objects.filter(
         category__id=category_id
     ).order_by('-id')
+    
+    if len(recipes) == 0:
+        return HttpResponseNotFound('Not found')
+
     return render(request, 'recipes/pages/category.html', context={
-        "recipes": recipes
+        "recipes": recipes,
+        'title': f'{title} - Category',
     })
 
 
 def recipes(request: HttpRequest, id: int):
-    print(id)
     recipe = Recipe.objects.filter(id=id).first()
     if not recipe:
-        return redirect(reverse('recipes:home'))
+        return HttpResponseNotFound('Not found')
     return render(request, 'recipes/pages/recipe.html', context={
         "recipe": recipe,
         "is_detail_page": True
