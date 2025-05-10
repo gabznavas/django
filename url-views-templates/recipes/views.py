@@ -15,7 +15,7 @@ def category(request: HttpRequest, category_id: int):
     recipes = Recipe.objects.filter(
         category__id=category_id
     ).order_by('-id')
-    return render(request, 'recipes/pages/home.html', context={
+    return render(request, 'recipes/pages/category.html', context={
         "recipes": recipes
     })
 
