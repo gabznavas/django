@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest, Http404
+from django.shortcuts import render, redirect, reverse
+from django.http import HttpResponse, HttpRequest, HttpResponseNotFound
 
 from .models import Recipe, Category
 
@@ -24,7 +24,7 @@ def recipes(request: HttpRequest, id: int):
     print(id)
     recipe = Recipe.objects.filter(id=id).first()
     if not recipe:
-        return Http404()
+        return redirect(reverse('recipes:home'))
     return render(request, 'recipes/pages/recipe.html', context={
         "recipe": recipe,
         "is_detail_page": True
