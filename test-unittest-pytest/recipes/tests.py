@@ -9,11 +9,11 @@ class RecipesURLsTest(TestCase):
         self.assertEqual(received, expected, 'path da home está errada!')
 
     def test_category_url_is_correct(self):
-        received = reverse('recipes:category', args=(1,))
+        received = reverse('recipes:category', kwargs={'category_id': 1})
         expected = '/recipes/category/1/'
         self.assertEqual(received, expected, 'path da category está errada!')
 
-    def test_recipe_url_is_correct(self):
-        received = reverse('recipes:recipe', args=(1,))
+    def test_recipe_detail_url_is_correct(self):
+        received = reverse('recipes:recipe', kwargs={'id': 1})
         expected = '/recipes/1/'
         self.assertEqual(received, expected, 'path da recipe está errada!')
