@@ -17,7 +17,7 @@ def category(request: HttpRequest, category_id: int):
     ).order_by('-id')
     
     if len(recipes) == 0:
-        return HttpResponseNotFound('Not found')
+        return HttpResponseNotFound(content='Not found')
 
     return render(request, 'recipes/pages/category.html', context={
         "recipes": recipes,
@@ -28,7 +28,7 @@ def category(request: HttpRequest, category_id: int):
 def recipes(request: HttpRequest, id: int):
     recipe = Recipe.objects.filter(id=id).first()
     if not recipe:
-        return HttpResponseNotFound('Not found')
+        return HttpResponseNotFound(content='Not found')
     return render(request, 'recipes/pages/recipe.html', context={
         "recipe": recipe,
         "is_detail_page": True
