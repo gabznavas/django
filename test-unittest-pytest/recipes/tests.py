@@ -7,3 +7,8 @@ class RecipesURLsTest(TestCase):
         received = reverse('recipes:home')
         expected = '/'
         self.assertEqual(received, expected, 'path da home está errada!')
+
+    def test_recipe_category_url_is_correct(self):
+        received = reverse('recipes:category', args=(1,))
+        expected = '/recipes/category/1/'
+        self.assertEqual(received, expected, 'path da home está errada!')

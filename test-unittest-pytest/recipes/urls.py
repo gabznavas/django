@@ -8,7 +8,7 @@ urlpatterns = [
         '',
         views.home,
         name="home"
-        ),
+    ),
     path(
         'recipes/category/<int:category_id>/',
         views.category,
