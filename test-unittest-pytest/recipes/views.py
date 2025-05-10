@@ -12,7 +12,7 @@ def home(request: HttpRequest):
 
 def category(request: HttpRequest, category_id: int):
     query = Recipe.objects.filter(
-        category__id=category_id, 
+        category__id=category_id,
         is_published=True
     ).order_by('-id')
     recipes = get_list_or_404(query)
