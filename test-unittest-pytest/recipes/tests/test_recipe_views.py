@@ -105,3 +105,20 @@ class RecipeViewsTest(RecipeTestBase):
         received = response.status_code
         expected = 404
         self.assertEqual(expected, received, f'código deveria ser {expected}')
+
+    def test_recipe_category_template_loads_recipes(self):
+        needed_title = 'This is a category test'
+        recipe = self.make_recipe(title=needed_title)
+        response = self.client.get(reverse('recipes:home'))
+        context_recipes = response.context['recipes']
+        content = response.content.decode('utf-8')
+
+        self.assertIn(needed_title, content,
+                      f'title: {needed_title} is not in content')
+        self.assertIn(
+            recipe.category.name, content,
+            f'category name: {recipe.category.name} is not in content'
+        )
+        self.assertEqual(recipe.category.id, context_recipes[0].category.id)
+        self.assertEqual(recipe.category.name,
+                         context_recipes[0].category.name)
