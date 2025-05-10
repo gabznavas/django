@@ -44,3 +44,11 @@ class RecipeViewsTest(TestCase):
         received = response.content.decode('utf-8')
         expected = 'No recipes found here'
         self.assertIn(expected, received)
+
+    def test_recipe_category_view_returns_status_404_if_no_recipes_found(self):
+        response = self.client.get(reverse('recipes:category', kwargs={
+            "category_id": 999,
+        }))
+        received = response.status_code
+        expected = 404
+        self.assertEqual(expected, received, f'código deveria ser {expected}')
