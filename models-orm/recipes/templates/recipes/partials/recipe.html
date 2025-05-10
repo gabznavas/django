@@ -25,25 +25,33 @@
       <h2 class="recipe-title">{{ recipe.title }}</h2>
     </div>
 
+   
     <div class="recipe-author">
-      <span class="recipe-author-item">
-        <i class="fa fa-user"></i>
-        {% if not recipe.author.first_name %}
-          {{ recipe.author.username | capfirst }}
-        {% else %}  
-        {{ recipe.author.first_name }}
-        {% endif %}
-      </span>
+
+      {% if recipe.author %}
+        <span class="recipe-author-item">
+          <i class="fa fa-user"></i>
+          {% if not recipe.author.first_name %}
+            {{ recipe.author.username | capfirst }}
+          {% else %}  
+          {{ recipe.author.first_name }}
+          {% endif %}
+        </span>
+      {% endif %}
+
       <span class="recipe-author-item">
         <i class="fa fa-calendar-alt"></i>
         {{ recipe.created_at | date:"d/m/Y" }}
       </span>
-      <span class="recipe-author-item">
-        <a href="{% url 'recipes:category' recipe.category.id %}">
-          <i class="fas fa-layer-group"></i>
-          <span>{{ recipe.category.name }}</span>
-        </a>
-      </span>
+
+      {% if recipe.category %}
+        <span class="recipe-author-item">
+          <a href="{% url 'recipes:category' recipe.category.id %}">
+            <i class="fas fa-layer-group"></i>
+            <span>{{ recipe.category.name }}</span>
+          </a>
+        </span>
+      {% endif %}
     </div>
 
     <div class="recipe-content">
