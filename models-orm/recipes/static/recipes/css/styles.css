@@ -65,6 +65,10 @@ h6 {
   font-family: var(--font-headings);
 }
 
+.center {
+  text-align: center;
+}
+
 .container {
   max-width: 144rem;
   margin: 0 auto;
