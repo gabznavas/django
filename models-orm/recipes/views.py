@@ -6,7 +6,8 @@ from .models import Recipe, Category
 from utils.recipes.factory import make_recipe
 
 def home(request: HttpRequest):
-    recipes = Recipe.objects.filter(is_published=True).order_by('-id')
+    query = Recipe.objects.filter(is_published=True).order_by('-id')
+    recipes = get_list_or_404(query)
     return render(request, 'recipes/pages/home.html', context={
         "recipes": recipes
     })
