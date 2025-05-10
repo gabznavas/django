@@ -2,7 +2,6 @@ from django.urls import reverse, resolve
 from recipes import views
 from recipes.models import Recipe
 from .test_recipe_base import RecipeTestBase
-from unittest import skip
 
 
 class RecipeViewsTest(RecipeTestBase):
@@ -99,7 +98,6 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertIn(recipe.servings_unit, content,
                       'servings_unit not found')
 
-    @skip('pulei')
     def test_recipe_category_view_returns_status_404_if_no_recipes_found(self):
         response = self.client.get(reverse('recipes:category', kwargs={
             "category_id": 1,
@@ -107,5 +105,3 @@ class RecipeViewsTest(RecipeTestBase):
         received = response.status_code
         expected = 404
         self.assertEqual(expected, received, f'código deveria ser {expected}')
-
-        self.fail('parei aqui!')
