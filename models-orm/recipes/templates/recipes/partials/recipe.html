@@ -84,9 +84,16 @@
 
 
   {% if is_detail_page%}
-    <div class="preparation-steps">
-      {{ recipe.preparation_steps | linebreaksbr }}
-    </div>
+    {% if recipe.preparation_steps_is_html %}
+      <div class="preparation-steps">
+        {{ recipe.preparation_steps | safe }}
+      </div>
+    {% else %}
+      <div class="preparation-steps">
+        {{ recipe.preparation_steps | linebreaksbr }}
+      </div>
+    {% endif %}
+   
   {% else %}
     <footer class="recipe-footer">
       <a href="{% url 'recipes:recipe' recipe.id %}" class="recipe-red-more button button-dark button-full-with">
