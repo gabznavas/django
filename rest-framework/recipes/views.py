@@ -79,16 +79,17 @@ class RecipeListCreateView(APIView):
             )
 
         total = queryset.count()
+
         start = page * size
-        end = start + size
-        recipes = queryset[start:end]
+        recipes = queryset[start:start + size]
 
         serializer = RecipeSerializerRead(recipes, many=True)
+        total_pages = math.ceil(total / size)
         return Response({
             'page': page,
             'page_size': size,
             'total_elements': total,
-            'total_pages': math.ceil(total / size),
+            'total_pages': total_pages,
             'data': serializer.data
         })
 
