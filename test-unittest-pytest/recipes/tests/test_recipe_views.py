@@ -140,3 +140,9 @@ class RecipeViewsTest(RecipeTestBase):
         response = self.client.get(reverse('recipes:home'))
         received = response.content.decode('utf-8')
         self.assertIn(recipe.category.name, received)
+
+    def test_recipe_home_template_load_recipes_verify_author(self):
+        recipe = self.make_recipe(is_published=True)
+        response = self.client.get(reverse('recipes:home'))
+        received = response.content.decode('utf-8')
+        self.assertIn(recipe.author.first_name, received)
