@@ -49,7 +49,6 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertIn(expected, received)
 
     def test_recipe_home_template_loads_recipes(self):
-
         response = self.client.get(reverse('recipes:home'))
         template_expected = 'recipes/pages/home.html'
         self.assertTemplateUsed(response, template_expected)
@@ -122,3 +121,10 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertEqual(recipe.category.id, context_recipes[0].category.id)
         self.assertEqual(recipe.category.name,
                          context_recipes[0].category.name)
+
+    def test_recipe_home_template_dont_load_recipes_no_published(self):
+        self.make_recipe(is_published=False)
+        response = self.client.get(reverse('recipes:home'))
+        received = response.content.decode('utf-8')
+        expected = 'No recipes found here'
+        self.assertIn(expected, received)
