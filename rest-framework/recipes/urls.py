@@ -1,8 +1,16 @@
 from django.urls import path
 
-from . import views
+from .views import RecipeGetPutDelete, RecipeListCreateView
 
 urlpatterns = [
-    path('api/v1/recipes/', views.recipe_list, name='recipe-list'),
-    path('api/v1/recipes/<int:id>', views.recipe_detail, name='recipe-detail'),
+    path(
+        'api/v1/recipes/<int:recipe_id>/',
+        RecipeGetPutDelete.as_view(),
+        name='recipe-detail-update-delete'
+    ),
+    path(
+        'api/v1/recipes/',
+        RecipeListCreateView.as_view(),
+        name='recipe-list-create',
+    ),
 ]
