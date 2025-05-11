@@ -16,6 +16,9 @@ def recipe_list(request: Request):
     except (ValueError, TypeError):
         return Response({'detail': 'Invalid page or size.'}, status=400)
 
+    if size > 50:
+        return Response({'detail': 'Invalid size length.'}, status=400)
+
     queryset = Recipe.objects.filter(is_published=True)
 
     if q:
@@ -39,3 +42,13 @@ def recipe_list(request: Request):
         'pages': math.ceil(total / size),
         'data': serializer.data
     })
+
+
+@api_view(['GET'])
+def recipe_detail(request: Request, id: int):
+    recipe = Recipe.objects.filter(id=id, is_published=True).first()
+    if recipe is None:
+        return Response(None, status=404)
+
+    serializer = RecipeSerializer(recipe)
+    return Response(serializer.data)
