@@ -29,6 +29,14 @@ class RecipeViewsTest(RecipeTestBase):
             'recipe esta usando a view errada'
         )
 
+    def test_recipe_home_views_function_is_correct(self):
+        view = resolve(reverse('recipes:search'))
+        self.assertIs(
+            views.home,
+            view.func,
+            'search esta usando a view errada'
+        )
+
     def test_recipe_home_view_returns_status_code_200_OK(self):
         response = self.client.get(reverse('recipes:home'))
         received = response.status_code
@@ -146,3 +154,25 @@ class RecipeViewsTest(RecipeTestBase):
         response = self.client.get(reverse('recipes:home'))
         received = response.content.decode('utf-8')
         self.assertIn(recipe.author.first_name, received)
+
+    def test_recipe_search_load_correct_template(self):
+        self.make_recipe(is_published=True)
+        response = self.client.get(reverse('recipes:search'))
+        template_expected = 'recipes/pages/home.html'
+        self.assertTemplateUsed(response, template_expected)
+
+    def test_recipe_search_load_correct_content(self):
+        title = 'Galinha Assada'
+        self.make_recipe(is_published=True, title=title)
+        response = self.client.get(
+            reverse('recipes:search') + f'?search={title}')
+        content = response.content.decode('utf-8')
+        self.assertIn(title, content)
+
+    def test_recipe_search_load_correct_context(self):
+        title = 'Galinha Assada'
+        recipe = self.make_recipe(is_published=True, title=title)
+        response = self.client.get(
+            reverse('recipes:search') + f'?search={title}')
+        recipes = response.context['recipes']
+        self.assertEqual(recipe.title, recipes[0].title)

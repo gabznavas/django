@@ -17,3 +17,8 @@ class RecipesURLsTest(TestCase):
         received = reverse('recipes:recipe', kwargs={'id': 1})
         expected = '/recipes/1/'
         self.assertEqual(expected, received, 'path da recipe está errada!')
+
+    def test_recipe_search_url_is_correct(self):
+        received = reverse('recipes:search')
+        expected = '/recipes/search/'
+        self.assertEqual(expected, received, 'path da search está errada!')

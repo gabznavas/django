@@ -19,4 +19,9 @@ urlpatterns = [
         views.recipes,
         name="recipe"
     ),
+    path(
+        'recipes/search/',
+        views.home,
+        name="search"
+    ),
 ]

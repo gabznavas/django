@@ -1,10 +1,20 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpRequest
 from .models import Recipe
+from django.db.models import Q
 
 
 def home(request: HttpRequest):
-    recipes = Recipe.objects.filter(is_published=True).order_by('-id')
+    search = request.GET.get('search', '')
+    print(search)
+    recipes = Recipe.objects.filter(
+        Q(is_published=True) & (
+            Q(title__icontains=search) |
+            Q(description__icontains=search) |
+            Q(preparation_time_unit__icontains=search) |
+            Q(servings_unit__icontains=search)
+        )
+    ).order_by('-id')
     return render(request, 'recipes/pages/home.html', context={
         "recipes": recipes
     })

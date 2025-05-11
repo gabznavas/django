@@ -1,6 +1,6 @@
 <div class="search-container">
   <div class="container">
-    <form class="search-form">
+    <form class="search-form" action="{% url 'recipes:search' %}">
       <input type="search" class="search-input" name="search" />
       <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
     </form>
