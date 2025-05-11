@@ -29,7 +29,7 @@ class RecipeViewsTest(RecipeTestBase):
             'recipe esta usando a view errada'
         )
 
-    def test_recipe_home_views_function_is_correct(self):
+    def test_recipe_seach_views_function_is_correct(self):
         view = resolve(reverse('recipes:search'))
         self.assertIs(
             views.search,
