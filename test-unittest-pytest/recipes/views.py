@@ -5,8 +5,15 @@ from django.db.models import Q
 
 
 def home(request: HttpRequest):
+    recipes = Recipe.objects.filter(is_published=True).order_by('-id')
+    return render(request, 'recipes/pages/home.html', context={
+        "recipes": recipes
+    })
+
+
+def search(request: HttpRequest):
+    # add o search de volta no form
     search = request.GET.get('search', '')
-    print(search)
     recipes = Recipe.objects.filter(
         Q(is_published=True) & (
             Q(title__icontains=search) |
@@ -16,7 +23,8 @@ def home(request: HttpRequest):
         )
     ).order_by('-id')
     return render(request, 'recipes/pages/home.html', context={
-        "recipes": recipes
+        "recipes": recipes,
+        "search": search,
     })
 
 

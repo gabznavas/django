@@ -32,7 +32,7 @@ class RecipeViewsTest(RecipeTestBase):
     def test_recipe_home_views_function_is_correct(self):
         view = resolve(reverse('recipes:search'))
         self.assertIs(
-            views.home,
+            views.search,
             view.func,
             'search esta usando a view errada'
         )

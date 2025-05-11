@@ -1,8 +1,19 @@
 <div class="search-container">
   <div class="container">
     <form class="search-form" action="{% url 'recipes:search' %}">
-      <input type="search" class="search-input" name="search" />
+      <input id="search" autofocus type="search" class="search-input" name="search" value="{{ search }}" />
       <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
     </form>
   </div>
 </div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('search');
+    if (input) {
+      const value = input.value;
+      input.focus();
+      input.setSelectionRange(value.length, value.length); // move cursor para o final
+    }
+  });
+</script>
