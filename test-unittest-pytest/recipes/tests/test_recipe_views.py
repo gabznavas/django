@@ -128,3 +128,9 @@ class RecipeViewsTest(RecipeTestBase):
         received = response.content.decode('utf-8')
         expected = 'No recipes found here'
         self.assertIn(expected, received)
+
+    def test_recipe_home_template_dont_load_recipes_is_published(self):
+        recipe = self.make_recipe(is_published=True)
+        response = self.client.get(reverse('recipes:home'))
+        received = response.content.decode('utf-8')
+        self.assertIn(recipe.description, received)
