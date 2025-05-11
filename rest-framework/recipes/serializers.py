@@ -9,12 +9,57 @@ class RecipeSerializerRead(serializers.ModelSerializer):
 
 
 class RecipeSerializerCreatePut(serializers.Serializer):
-    title = serializers.CharField(max_length=65)
-    description = serializers.CharField(max_length=165)
-    preparation_time = serializers.IntegerField()
-    preparation_time_unit = serializers.CharField(max_length=65)
-    servings = serializers.IntegerField()
-    servings_unit = serializers.CharField(max_length=65)
-    preparation_steps = serializers.CharField(max_length=500)
-    category_id = serializers.IntegerField()
-    author_id = serializers.IntegerField()
+    title = serializers.CharField(
+        required=True,
+        allow_null=False,
+        min_length=1,
+        max_length=100
+    )
+    description = serializers.CharField(
+        required=True,
+        allow_null=False,
+        min_length=1,
+        max_length=100
+    )
+    preparation_time = serializers.IntegerField(
+        required=True,
+        allow_null=False,
+        min_value=1,
+        max_value=1000
+    )
+    preparation_time_unit = serializers.CharField(
+        required=True,
+        allow_null=False,
+        min_length=1,
+        max_length=50
+    )
+    servings = serializers.IntegerField(
+        required=True,
+        allow_null=False,
+        min_value=1,
+        max_value=1000
+    )
+    servings_unit = serializers.CharField(
+        required=True,
+        allow_null=False,
+        min_length=1,
+        max_length=50
+    )
+    preparation_steps = serializers.CharField(
+        required=True,
+        allow_null=False,
+        min_length=1,
+        max_length=500
+    )
+    category_id = serializers.IntegerField(
+        required=True,
+        allow_null=False,
+        min_value=1,
+        max_value=2_147_483_647
+    )
+    author_id = serializers.IntegerField(
+        required=True,
+        allow_null=False,
+        min_value=1,
+        max_value=2_147_483_647
+    )

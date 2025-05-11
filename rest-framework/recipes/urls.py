@@ -6,7 +6,7 @@ urlpatterns = [
     path(
         'api/v1/recipes/<int:recipe_id>/',
         RecipeGetPutDelete.as_view(),
-        name='recipe-detail-update-delete'
+        name='recipe-get-update-delete'
     ),
     path(
         'api/v1/recipes/',

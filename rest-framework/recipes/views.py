@@ -86,9 +86,9 @@ class RecipeListCreateView(APIView):
         serializer = RecipeSerializerRead(recipes, many=True)
         return Response({
             'page': page,
-            'size': size,
-            'total': total,
-            'pages': math.ceil(total / size),
+            'page_size': size,
+            'total_elements': total,
+            'total_pages': math.ceil(total / size),
             'data': serializer.data
         })
 
