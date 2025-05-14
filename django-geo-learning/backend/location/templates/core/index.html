@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Localização</title>
+</head>
+<body>
+  <button id="getLocationBtn">
+    Get my Location
+  </button>
+
+  <div id="locationResult">
+    <h2>Location details:</h2>
+    <p>Latitude: <span id="latitudeDisplay">{{ user.location.latitude }}</span></p>
+    <p>Longitude: <span id="longitudeDisplay">{{ user.location.latitude }}</span></p>
+  </div>
+
+  <div id="locationError"></div>
+
+  <script>
+
+    const sendUsercoordinates = async (coords) => {
+      const response = await fetch('/save-location/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "X-CSRFToken": '{{ csrf_token }}' // Django CSRF protection
+        },
+        body: JSON.stringify({
+          latitude: coords.latitude,
+          longitude: coords.longitude
+        })
+      })
+
+      if(!response.ok) {
+        const data = await response.json()
+        const locationError = document.getElementById('locationError')
+        locationError.textContent = data.message
+      } 
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const locationBtn = document.getElementById('getLocationBtn')
+      const latitudeDisplay = document.getElementById('latitudeDisplay')
+      const longitudeDisplay = document.getElementById('longitudeDisplay')
+
+      locationBtn.addEventListener('click', function() {
+        // check if geloctaion is supported
+        if('geolocation' in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            // success calback
+            function(position) {
+              latitudeDisplay.textContent = position.coords.latitude.toFixed(4)
+              longitudeDisplay.textContent = position.coords.longitude.toFixed(4)
+              sendUsercoordinates(position.coords).catch(ex => console.log(ex))
+            },
+
+
+            // error callback
+            function(error) {
+              console.log(error);
+            },
+
+            // options
+            {
+              enableHighAccuracy: true,
+              timeout: 5000, // 5 seconds 
+              maximumAge: 0
+            }
+          )
+        }
+      })
+    })
+  </script>
+</body>
+</html>
